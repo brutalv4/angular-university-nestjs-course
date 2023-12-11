@@ -1,0 +1,3 @@
+[tools]
+node = "lts-gallium"
+pnpm = "8"
