@@ -12,6 +12,12 @@ export class CoursesRepository {
     return this.courseModel.find();
   }
 
+  async create(course: Partial<Course>) {
+    const newCourse = new this.courseModel(course);
+    await newCourse.save();
+    return newCourse.toObject({ versionKey: false });
+  }
+
   update(courseId: string, changes: Partial<Course>) {
     return this.courseModel.findByIdAndUpdate(courseId, changes, {
       new: true,
