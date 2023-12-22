@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -33,6 +34,11 @@ export class CoursesController {
     @Body() changes: Partial<Course>,
   ) {
     console.log(`updating course ${courseId}`);
+
+    if (changes._id) {
+      throw new BadRequestException("Can't update course with _id");
+    }
+
     return this.coursesDB.update(courseId, changes);
   }
 
