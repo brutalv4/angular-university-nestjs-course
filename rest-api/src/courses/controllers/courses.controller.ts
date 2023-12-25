@@ -6,7 +6,7 @@ import {
   Get,
   Param,
   Post,
-  Put,
+  Put
 } from '@nestjs/common';
 
 import { CoursesRepository } from '../repositories/courses.repository';
