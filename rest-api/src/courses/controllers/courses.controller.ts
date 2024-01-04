@@ -5,8 +5,9 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
-  Put
+  Put,
 } from '@nestjs/common';
 
 import { CoursesRepository } from '../repositories/courses.repository';
@@ -31,9 +32,10 @@ export class CoursesController {
   @Put(':courseId')
   updateCourse(
     @Param('courseId') courseId: string,
+    @Body('seqNo', ParseIntPipe) seqNo: number,
     @Body() changes: Partial<Course>,
   ) {
-    console.log(`updating course ${courseId}`);
+    console.log(`updating course ${courseId} and seqNo ${seqNo}`);
 
     if (changes._id) {
       throw new BadRequestException("Can't update course with _id");

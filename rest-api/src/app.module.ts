@@ -11,6 +11,7 @@ const MONGODB_CONNECTION = `mongodb://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@
     MongooseModule.forRoot(MONGODB_CONNECTION, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false
     }),
   ],
 })
