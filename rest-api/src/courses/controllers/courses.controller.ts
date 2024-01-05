@@ -24,7 +24,7 @@ export class CoursesController {
   }
 
   @Post()
-  createCourse(@Body() course: Partial<Course>) {
+  createCourse(@Body() course: Course) {
     console.log('creating a new course');
     return this.coursesDB.create(course);
   }
@@ -32,10 +32,9 @@ export class CoursesController {
   @Put(':courseId')
   updateCourse(
     @Param('courseId') courseId: string,
-    @Body('seqNo', ParseIntPipe) seqNo: number,
-    @Body() changes: Partial<Course>,
+    @Body() changes: Course,
   ) {
-    console.log(`updating course ${courseId} and seqNo ${seqNo}`);
+    console.log(`updating course ${courseId}`);
 
     if (changes._id) {
       throw new BadRequestException("Can't update course with _id");
