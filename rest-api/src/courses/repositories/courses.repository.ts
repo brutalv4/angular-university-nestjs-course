@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -10,6 +10,12 @@ export class CoursesRepository {
 
   findAll() {
     return this.courseModel.find();
+  }
+
+  findByUrl(url: string) {
+    return this.courseModel
+      .findOne({ url })
+      .orFail(new NotFoundException(`Could not find course for url ${url}`));
   }
 
   async create(course: Partial<Course>) {

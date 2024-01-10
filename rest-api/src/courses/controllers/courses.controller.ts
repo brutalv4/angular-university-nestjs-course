@@ -5,9 +5,8 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Post,
-  Put,
+  Put
 } from '@nestjs/common';
 
 import { CoursesRepository } from '../repositories/courses.repository';
@@ -23,6 +22,12 @@ export class CoursesController {
     return this.coursesDB.findAll();
   }
 
+  @Get(':courseUrl')
+  findCourseByUrl(@Param('courseUrl') courseUrl: string) {
+    console.log(`searching course by url ${courseUrl}`);
+    return this.coursesDB.findByUrl(courseUrl);
+  }
+
   @Post()
   createCourse(@Body() course: Course) {
     console.log('creating a new course');
@@ -30,10 +35,7 @@ export class CoursesController {
   }
 
   @Put(':courseId')
-  updateCourse(
-    @Param('courseId') courseId: string,
-    @Body() changes: Course,
-  ) {
+  updateCourse(@Param('courseId') courseId: string, @Body() changes: Course) {
     console.log(`updating course ${courseId}`);
 
     if (changes._id) {
