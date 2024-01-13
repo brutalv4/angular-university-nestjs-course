@@ -39,7 +39,7 @@ export class AuthorizationGuard implements CanActivate {
     userRoles.forEach(userRole => {
       console.log('Checking if role is allowed', userRole);
 
-      if (!!allowed && this.allowedRoles.includes(userRole)) {
+      if (!allowed && this.allowedRoles.includes(userRole)) {
         allowed = true;
       }
     });

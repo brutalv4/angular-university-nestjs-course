@@ -13,6 +13,7 @@ import {
 import { AuthenticationGuard } from '../../guards/authentication.guard';
 import { CoursesRepository } from '../repositories/courses.repository';
 import { Course } from './../../../../shared/course';
+import { AdminGuard } from './../../guards/admin.guard';
 
 @Controller('courses')
 @UseGuards(AuthenticationGuard)
@@ -32,12 +33,14 @@ export class CoursesController {
   }
 
   @Post()
+  @UseGuards(AdminGuard)
   createCourse(@Body() course: Course) {
     console.log('creating a new course');
     return this.coursesDB.create(course);
   }
 
   @Put(':courseId')
+  @UseGuards(AdminGuard)
   updateCourse(@Param('courseId') courseId: string, @Body() changes: Course) {
     console.log(`updating course ${courseId}`);
 
@@ -49,6 +52,7 @@ export class CoursesController {
   }
 
   @Delete(':courseId')
+  @UseGuards(AdminGuard)
   deleteCourse(@Param('courseId') courseId: string) {
     console.log(`deleting course ${courseId}`);
     return this.coursesDB.delete(courseId);
