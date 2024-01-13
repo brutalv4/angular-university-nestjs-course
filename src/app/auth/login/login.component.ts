@@ -1,14 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 
-import { AuthService } from '../auth.service';
-import { tap } from 'rxjs/operators';
-import { noop } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'login',
@@ -33,12 +31,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     const { email, password } = this.form.value;
-    this.auth.login(email, password).subscribe({
-      next: () => this.router.navigate(['courses']),
-      error: (err) => {
+    this.auth.login(email, password).subscribe(
+      ({ authJwtToken }) => {
+        localStorage.setItem('authJwtToken', authJwtToken);
+        this.router.navigate(['courses']);
+      },
+      (err) => {
         console.log('Login failed', err);
         alert('Login failed');
-      },
-    });
+      }
+    );
   }
 }
