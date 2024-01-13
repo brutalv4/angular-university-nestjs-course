@@ -5,9 +5,12 @@ import {
   ParseIntPipe,
   Query,
 } from '@nestjs/common';
+import { LessonsRepository } from '../repositories/lessons.repository';
 
 @Controller('lessons')
 export class LessonsController {
+  constructor(private lessonsDb: LessonsRepository) {}
+
   @Get()
   findLessons(
     @Query('courseId') courseId: string,
@@ -22,5 +25,7 @@ export class LessonsController {
     if (sortOrder !== 'asc' && sortOrder !== 'desc') {
       throw new BadRequestException('sortOrder must be asc or desc');
     }
+
+    return this.lessonsDb.search(courseId, sortOrder, pageNumber, pageSize);
   }
 }
