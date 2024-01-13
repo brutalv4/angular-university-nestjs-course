@@ -1,4 +1,3 @@
-import { AuthGuard } from './../../auth/auth.guard';
 import {
   BadRequestException,
   Body,
@@ -11,11 +10,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
+import { AuthenticationGuard } from '../../guards/authentication.guard';
 import { CoursesRepository } from '../repositories/courses.repository';
 import { Course } from './../../../../shared/course';
 
 @Controller('courses')
-@UseGuards(AuthGuard)
+@UseGuards(AuthenticationGuard)
 export class CoursesController {
   constructor(private coursesDB: CoursesRepository) {}
 

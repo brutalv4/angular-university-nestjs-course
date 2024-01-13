@@ -6,9 +6,9 @@ import {
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 
-export class AuthGuard implements CanActivate {
+export class AuthenticationGuard implements CanActivate {
   canActivate(
-    context: ExecutionContext
+    context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const httpCtx = context.switchToHttp();
     const request = httpCtx.getRequest<Request>();
